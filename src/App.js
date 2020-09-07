@@ -5,7 +5,8 @@ function App() {
   const [state, setState] = useState('');
 
   const handleClick = () => {
-    setState('Helloworld')
+    setState('Hello world')
+    window.confirm('Hello world')
   };
   return (
     <div>
