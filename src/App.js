@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [state, setState] = useState('');
+
+  const handleClick = () => {
+    setState('Helloworld')
+  };
   return (
     <div>
-      <button onClick>button</button>
+      <button onClick={handleClick}>button</button>
+      {state}
     </div>
   );
-}
+};
 
 export default App;
