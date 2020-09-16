@@ -1,28 +1,17 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import TopPage from './pages/TopPage';
+import SecondPage from './pages/SecondPage';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  const INCREMENT = () => {
-    setCount(count + 1)
-  };
-
-  const DECREMENT = () => {
-    setCount(count - 1)
-  };
-
-  const RESET = () => {
-    setCount(0)
-  };
-  return (
-    <div>
-      <button onClick={INCREMENT}>いいね！</button>
-      <button onClick={DECREMENT}>よくないね！</button>
-      <button onClick={RESET}>reset</button>
-      {count}
-    </div>
-  );
+    return (
+        <Router>
+            <Switch>
+                <Route exact path='/' component={TopPage} />
+                <Route exact path='/secondpage' component={SecondPage} />
+            </Switch>
+        </Router>
+    );
 };
 
 export default App;
