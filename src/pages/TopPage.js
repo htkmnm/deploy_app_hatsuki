@@ -5,32 +5,42 @@ import './pages.css';
 
 function TopPage() {
   // const [state, dispatch] = useReducer(reducer, []);
-  const [text, setText] = useState('');
-  const [value, setValue] = useState('');
-  const [error, setError] = useState('')
+  const [user, setUser] = useState('');
+  const [cpu, setCpu] = useState('');
 
-  const handleClick = () => {
-    const errorText = 'なにか文字を入力してください。'
-    // e.preventDefault();
-    // dispatch({
-    // type: CLICK_EVENT
-    // });
-    if (text === '') {
-      return setError(errorText)
-    } else {
-    } return setValue(text)
+  const random = () => {
+    let nam = Math.floor(Math.random() * 3)
+    if (nam === 0) {
+      setCpu('ぐー')
+    } else if (nam === 1) {
+      setCpu('ちょき')
+    } else if (nam === 2) {
+      setCpu('ぱー')
+    }
+  }
+
+  const rock = () => {
+    setUser('ぐー')
+    setCpu(random)
+  };
+
+  const scissors = () => {
+    setUser('ちょき')
+    setCpu(random)
+  };
+
+  const paper = () => {
+    setUser('ぱー')
+    setCpu(random)
   };
 
   return (
     <div>
-      <input
-        tyoe="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button onClick={handleClick}>hello</button>
-      {value}
-      <p className='error'>{error}</p>
+      <button onClick={rock}>ぐー</button>
+      <button onClick={scissors}>ちょき</button>
+      <button onClick={paper}>ぱー</button>
+      <p>あなたの手:{user}</p>
+      <p>cpuの手:{cpu}</p>
     </div>
   );
 };
