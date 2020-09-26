@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 // import { fetchGetData } from '../apis/index';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Store } from '../store/index';
 import { GET_DATA } from '../actions/index';
 import { Table, Accordion, Button } from 'react-bootstrap';
@@ -24,6 +25,10 @@ const TopPage = () => {
 
   return (
     <div>
+      <div>
+        <h1>TopPage</h1>
+        <Link to='secondpage'>SecondPageへ移動</Link>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
