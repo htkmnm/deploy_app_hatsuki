@@ -1,78 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import './pages.css';
-// import reducer from '../reducers/index'
-// import { CLICK_EVENT } from '../actions/index';
+import React, { useEffect, useContext, useState } from 'react';
+// import { fetchGetData } from '../apis/index';
+import Axios from 'axios';
+import { Store } from '../store/index';
+import { GET_DATA } from '../actions/index';
+import { Table, Accordion, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function TopPage() {
-  // const [state, dispatch] = useReducer(reducer, []);
-  const [user, setUser] = useState('');
-  const [cpu, setCpu] = useState('');
-  const [result, setResult] = useState('判定中');
-  const [count, setCount] = useState(0);
+const TopPage = () => {
+  const [qiita, setQiita] = useState([]);
+  const { globalState, setGlobalState } = useContext(Store);
 
-  useEffect(
-    () => {
-      judge()
-    },
-    [count]
-  );
-
-
-  const cpuHand = () => {
-    let nam = Math.floor(Math.random() * 3)
-    if (nam === 0) {
-      setCpu('ぐー')
-    } else if (nam === 1) {
-      setCpu('ちょき')
-    } else if (nam === 2) {
-      setCpu('ぱー')
-    }
-    setCount(prev => prev + 1)
-  };
-
-  const rock = () => {
-    setUser('ぐー')
-    cpuHand()
-  };
-
-  const scissors = () => {
-    setUser('ちょき')
-    cpuHand()
-  };
-
-  const paper = () => {
-    setUser('ぱー')
-    cpuHand()
-  };
-
-  const judge = () => {
-    if (user !== '') {
-      if (user === cpu) {
-        setResult('あいこです。')
-      } else if (user === 'ぐー' && cpu === 'ちょき') {
-        setResult('あなたの勝ちです！')
-      } else if (user === 'ぐー' && cpu === 'ぱー') {
-        setResult('あなたの負けです！')
-      } else if (user === 'ちょき' && cpu === 'ぱー') {
-        setResult('あなたの勝ちです！')
-      } else if (user === 'ちょき' && cpu === 'ぐー') {
-        setResult('あなたの負けです！')
-      } else if (user === 'ぱー' && cpu === 'ぐー') {
-        setResult('あなたの勝ちです！')
-      } else if (user === 'ぱー' && cpu === 'ちょき') {
-        setResult('あなたの負けです！')
-      }
-    }
-  };
+  useEffect(() => {
+    Axios.get('https://qiita.com/api/v2/items')
+      .then((res) => {
+        setQiita(res.data)
+        setGlobalState({
+          type: GET_DATA,
+          data: res.data
+        });
+      });
+  }, []);
+  console.log(globalState, '---------')
 
   return (
     <div>
-      <button onClick={rock}>ぐー</button>
-      <button onClick={scissors}>ちょき</button>
-      <button onClick={paper}>ぱー</button>
-      <p>あなたの手:{user}</p>
-      <p>cpuの手:{cpu}</p>
-      <p>勝敗:{result}</p>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Qiita</th>
+            <th>タイトル一覧</th>
+          </tr>
+        </thead>
+        <tbody>
+          {qiita.map((element, index) => {
+            return (
+              <tr key={index}>
+                <td>{element.created_at}</td>
+                <td>{element.title} <br /><Accordion.Toggle as={Button} variant="link" eventKey="1">{element.url}</Accordion.Toggle></td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </Table>
     </div>
   );
 };

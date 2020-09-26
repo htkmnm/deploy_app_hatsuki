@@ -1,1 +1,1 @@
-// export const CLICK_EVENT = 'CLICK_EVENT';
+export const GET_DATA = 'GET_DATA';
