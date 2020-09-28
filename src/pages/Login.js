@@ -15,6 +15,21 @@ const Login = () => {
                 history.push('/main')
                 console.log('success login');
             })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                // ...
+                if (errorCode === 'auth/wrong-password') {
+                    alert('パスワードが間違えてます。');
+                } else if (errorCode === 'auth/user-not-found') {
+                    alert('存在しないアカウントです。');
+                } else if (errorCode === 'auth/invalid-email') {
+                    alert('入力してください。');
+                } else if (errorCode === 'auth/user-disabled') {
+                    alert('無効のアカウントです。')
+                }
+                console.log(error);
+            });
     };
 
     return (

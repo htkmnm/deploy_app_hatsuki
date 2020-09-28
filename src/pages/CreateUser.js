@@ -15,6 +15,21 @@ const CreateUser = () => {
                 history.push('/')
                 console.log('success createUser');
             })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                // ...
+                if (errorCode === 'auth/weak-password') {
+                    alert('8桁以上で設定してください。');
+                } else if (errorCode === 'auth/invalid-email') {
+                    alert('入力してください。');
+                } else if (errorCode === 'auth/email-already-in-use') {
+                    alert('同じアカウントが存在します。');
+                } else if (errorCode === 'operation-not-allowed') {
+                    alert('無効です。')
+                }
+                console.log(error);
+            });
     };
 
     return (
