@@ -7,13 +7,14 @@ import firebase from '../config/firebase';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();
+    const history = useHistory(email);
 
     const handleClick = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 history.push('/main')
                 console.log('success login');
+                console.log(email)
             })
             .catch(function (error) {
                 // Handle Errors here.
