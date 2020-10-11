@@ -20,16 +20,17 @@ firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore();
 
 // mydatacreate
-export const mydataCreate = async (first, last, born) => {
+export const mydataCreate = async (userid, first, last, born) => {
     await db
         .collection('user')
-        .add({
+        .doc(userid)
+        .set({
             first: first,
             last: last,
             born: born,
         })
-        .then(function (docRef) {
-            console.log('Document written with ID:', docRef.id);
+        .then(function () {
+            console.log('Document successfully written!');
         })
         .catch(function (error) {
             console.error('Error adding document:', error);

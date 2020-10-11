@@ -9,9 +9,10 @@ const Main = () => {
     const [first, setFirst] = useState('');
     const [last, setLast] = useState('');
     const [born, setBorn] = useState('');
+    const [userid, setUserid] = useState('');
 
     const handlemydataCreate = async () => {
-        await mydataCreate(first, last, born);
+        await mydataCreate(userid, first, last, born);
     };
     const handleCreate = async () => {
         await createData();
@@ -40,6 +41,7 @@ const Main = () => {
     return (
         <div>
             <h1>Main</h1>
+            <TextField id="userid" label="userid" value={userid} onChange={e => setUserid(e.target.value)} />
             <TextField id="first" label="first" value={first} onChange={e => setFirst(e.target.value)} />
             <TextField id="last" label="last" value={last} onChange={e => setLast(e.target.value)} />
             <TextField id="born" label="born" value={born} onChange={e => setBorn(e.target.value)} /><br />
